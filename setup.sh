@@ -100,3 +100,32 @@ printf 'if [ "$(ls -A $HOME/.dotfiles)" ]; then\n' >> "$HOME/.zshrc"
 printf 'for f in ~/.dotfiles/*; do source $f; done\n' >> "$HOME/.zshrc"
 printf 'fi\n' >> "$HOME/.zshrc"
 chsh -s /bin/zsh
+cd $HOME/Downloads && curl -O https://d11yldzmag5yn.cloudfront.net/prod/4.1.23501.0416/zoomusInstaller.pkg
+sudo /usr/sbin/installer -pkg /Users/siddarthramaswamy/Downloads/zoomusInstaller.pkg -target /
+
+# Mac Modifications
+defaults write com.apple.Dock orientation -string right
+defaults write com.apple.dock tilesize -int 16;
+defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock largesize -int 128;
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock mineffect -string 'genie'
+defaults write NSGlobalDomain AppleActionOnDoubleClick -string "Maximize"
+defaults write com.apple.dock launchanim -bool true
+defaults write com.apple.dock show-process-indicators -bool true
+defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Google Chrome.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Slack.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/iTunes.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/zoom.us.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/iTerm.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Atom.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Sketch.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Postman.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Evernote.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+killall Dock
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
