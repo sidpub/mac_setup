@@ -37,7 +37,7 @@ npm install react-native-cli -g --silent
 npm install artillery -g --silent
 
 # Setting Up SSH
-if [[ ! $variable ]]
+if [[ ! $variable ]]; then
     ssh-keygen -t rsa
     echo "SSH Generated at $HOME/.ssh"
 else
@@ -48,8 +48,10 @@ fi
 # Configuring Vim
 git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 sh ~/.vim_runtime/install_awesome_vimrc.sh
-if if [ -d "$HOME/.vim_rumtime/vimrcs/plugins_ext_config.vim" ]; then
-    cp plugins_ext_config.vim $HOME/.vim_rumtime/vimrcs/plugins_ext_config.vim
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vimrc_path="$HOME/.vim_runtime/vimrcs"
+if [[ -d "$vimrc_path" ]]; then
+    cp plugins_ext_config.vim $vimrc_path/plugins_ext_config.vim
 else
     echo "We were unable to copy the plugin configuration"
 fi
@@ -82,12 +84,19 @@ printf "source ~/.vim_runtime/vimrcs/filetypes.vim\n" >> "$HOME/.vimrc"
 printf "source ~/.vim_runtime/vimrcs/plugins_ext_config.vim\n" >> "$HOME/.vimrc"
 printf "source ~/.vim_runtime/vimrcs/extended.vim\n" >> "$HOME/.vimrc"
 
-# Configuring ZSH
-# Comment out Plugins and necessary aliases
-# Appending to zshrc
-#if [ ! -d "$HOME/.dotfiles" ]; then
-#    mkdir "$HOME/.dotfiles"
-#fi
-#'export PATH="/usr/local/bin:$PATH"'
-#'eval "$(rbenv init - --no-rehash)"'
-#for f in ~/.dotfiles/*; do source $f; done
+vim +PluginInstall +qall
+
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+# printf "\n\nplugins=(bgnotify colored-man-pages colorize common-aliases copyfile per-directory-history dirpersist dotenv extract git-extras globalias helm history-substring-search jsontools pj redis-cli zsh-navigation-tools)\n\n" >> "$HOME/.zshrc"
+if [[ ! -d "$HOME/.dotfiles" ]]; then
+   mkdir "$HOME/.dotfiles"
+fi
+
+printf 'export PATH="/usr/local/bin:$PATH"\n' >> "$HOME/.zshrc"
+printf 'export JAVA_HOME="/Library/Java/Home"\n' >> "$HOME/.zshrc"
+printf 'eval "$(rbenv init - --no-rehash)"\n' >> "$HOME/.zshrc"
+printf 'fpath=(/usr/local/share/zsh-completions $path)\n' >> "$HOME/.zshrc"
+printf 'if [ "$(ls -A $HOME/.dotfiles)" ]; then\n' >> "$HOME/.zshrc"
+printf 'for f in ~/.dotfiles/*; do source $f; done\n' >> "$HOME/.zshrc"
+printf 'fi\n' >> "$HOME/.zshrc"
+chsh -s /bin/zsh
