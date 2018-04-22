@@ -4,4 +4,4 @@ Easy one command setup for a new mac
 - Install xcode
 - Agree the licennse using `sudo xcodebuild -license`
 - git clone https://github.com/tagnotfound/mac_setup.git
-- Run sh mac_setup/setup.sh
+- Run cd mac_setup && sh setup.sh
